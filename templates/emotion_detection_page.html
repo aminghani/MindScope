@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ML Model Demo</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background-color: #f2f2f2;
+			font-family: Arial, sans-serif;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		h1 {
+			color: #333;
+			margin-top: 50px;
+			text-align: center;
+			font-size: 36px;
+			font-weight: bold;
+		}
+
+		form {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin-top: 50px;
+		}
+
+		label {
+			color: #555;
+			margin-bottom: 10px;
+			font-size: 24px;
+			font-weight: bold;
+		}
+
+		input[type="text"] {
+			padding: 10px;
+			margin-bottom: 20px;
+			border: none;
+			border-radius: 5px;
+			box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+			font-size: 24px;
+			font-weight: bold;
+			width: 400px;
+			max-width: 100%;
+			background-color: #fff;
+			color: #333;
+			transition: box-shadow 0.2s ease-in-out;
+		}
+
+		input[type="text"]:focus {
+			box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2);
+			outline: none;
+		}
+
+		button {
+			background-color: #333;
+			color: #fff;
+			border: none;
+			padding: 20px;
+			margin: 10px;
+			font-size: 24px;
+			font-weight: bold;
+			cursor: pointer;
+			border-radius: 5px;
+			box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+			transition: background-color 0.2s ease-in-out;
+		}
+
+		button:hover {
+			background-color: #555;
+		}
+
+		#result {
+			color: #333;
+			margin-top: 50px;
+			text-align: center;
+			font-size: 24px;
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<h1>ML Model Demo</h1>
+	<form id="text-form">
+		<label for="text">Enter some text:</label>
+		<input type="text" id="text" name="text" placeholder="Enter some text...">
+		<button type="submit">Submit</button>
+	</form>
+	<div id="result"></div>
+	<script>
+		$(document).ready(function() {
+			$('#text-form').submit(function(event) {
+				event.preventDefault();
+				$.ajax({
+					url: '/process_text',
+					type: 'POST',
+					data: $(this).serialize(),
+					success: function(response) {
+						$('#result').text(response.result);
+					}
+				});
+			});
+		});
+	</script>
+</body>
+</html>
